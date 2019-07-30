@@ -1,0 +1,10 @@
+{% extends "base/base_admin.html" %}
+
+{% block title %}DashBoard{% endblock title %}
+
+	
+{% block content %}
+<h3>Welcome</h3>
+<a href="{% url 'client:show' user.username %}">{{ user.username }}</a>
+<a href="{% url 'project:my_projects' %}">Mis Proyectos</a>
+{% endblock content %}

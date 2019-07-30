@@ -1,0 +1,24 @@
+[
+	{
+		"model": "status.status",
+		"pk": 1,
+		"fields": {
+			"title": "Sin Registro",
+			"description": "Se asigna cuando el proyecto es creado",
+			"color": "#DAEDC9",
+			"create_date": "2019-07-28T23:06:57Z",
+			"active": true
+		}
+	},
+	{
+		"model": "status.status",
+		"pk": 2,
+		"fields": {
+			"title": "Finalizado",
+			"description": "Finalizado",
+			"color": "blue",
+			"create_date": "2019-07-28T23:47:59Z",
+			"active": true
+		}
+	}
+]

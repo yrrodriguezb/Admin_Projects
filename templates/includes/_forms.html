@@ -1,0 +1,23 @@
+{{ form.non_field_errors }}
+
+{% for field in form %}
+	<div class="row">
+		<div class="input-field col s12">
+			{% if field.errors %}
+				{{ field.errors }}
+			{% endif %}
+
+			{{ field }}
+
+			<label 
+				for="{{ field.name }}"
+				class="
+					{% for class in field.label_classes %}
+						{{  class }}
+					{% endfor %}"
+			>
+				{{ field.label }}
+			</label>
+		</div>
+	</div>
+{% endfor %}

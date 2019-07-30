@@ -1,0 +1,34 @@
+{% extends 'base/base_admin.html' %}
+
+{% block title %}
+Editar Cuenta
+{% endblock title %}
+
+{% block title_page %}
+<h3>Editar cuenta</h3>
+{% endblock title_page %}
+
+{% block styles %}
+  {% load staticfiles %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock styles %}
+	
+
+{% block content %}
+<div class="collection">
+  <a class="collection-item active" href="{% url 'client:edit' %}">Perfil</a>
+  <a class="collection-item" href="{% url 'client:edit_password' %}">Contrseña</a> 
+  <a class="collection-item" href="{% url 'client:edit_social' %}">Redes Sociales</a> 
+</div>
+
+<div class="class_container_form">
+    <form method='POST'>
+      {% csrf_token %}
+     
+      {% include "includes/_forms.html" with form=form_user %}
+      {% include "includes/_forms.html" with form=form_client %}
+
+      <input class="btn #9E9E9E grey" type="submit" value="Actualizar" >
+    </form>
+  </div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "base/base_admin.html" %}
+
+{% block title %}Crear Usuario{% endblock title %}
+
+{% block styles %}
+  {% load staticfiles %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock styles %}
+	
+{% block content %}
+	<div class="class_container_form">
+    <form method='POST'>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="row">
+          <div class="input-field col s12">
+            {% if field.errors %}
+              {{ field.errors }}
+            {% endif %}
+
+            {{ field }}
+
+            <label 
+              for="{{ field.name }}"
+              class="
+                {% for class in field.label_classes %}
+                  {{  class }}
+                {% endfor %}"
+            >
+              {{ field.label }}
+            </label>
+          </div>
+        </div>
+      {% endfor %}
+      <input class="btn #9E9E9E grey" type="submit" value="Registrase" >
+    </form>
+  </div>
+{% endblock content %}
+
+{% block footer %}
+<footer>
+	<p>Ya cuento con una <a href="{% url 'client:login' %}">Cuenta</a></p>
+</footer>
+{% endblock footer %}

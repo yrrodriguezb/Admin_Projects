@@ -1,0 +1,36 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}
+    </title>
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+	{% block styles %}{% endblock styles %}
+	<!-- Compiled and minified JavaScript -->
+    <script src="{% static 'js/materialize.min.js' %}"></script>
+    {% block scripts %}{% endblock scripts %}
+</head>
+<body>
+    <h3>{% block title_page %}{% endblock  %}</h3>
+
+
+    <!-- <a href="{% url 'client:logout' %}">Logout</a>
+    <a href="{% url 'client:show' user.username %}">Show</a>
+    <a href="{% url 'client:edit' %}">Edit</a>
+    <a href="{% url 'client:edit_password' %}">Edit Password</a> -->
+
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li {% if message.tags %}class="{{ message.tags }}_message"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

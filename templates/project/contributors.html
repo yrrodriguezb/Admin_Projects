@@ -1,0 +1,32 @@
+{% extends "base/base_admin.html" %}
+{% load staticfiles %}
+
+{% block title %}Colaboradores Proyecto{% endblock title %}
+
+{% block styles %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock styles %}
+
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'js/search_user.js' %}"></script>
+{% endblock scripts %}
+	
+{% block content %}
+	{% for user in object_list %}
+		<p>{{ user.user }} Permiso: {{ user.permission }}</p>
+		<a href="{% url 'project:user_contributor' project.slug user.user.username %}">Ver</a>
+	{% endfor %}
+
+	<form id="form-search-user" method="GET" action="{% url 'client:filter'%}">
+		<input type="text" name="username" >
+		<button id="btnBuscar" type="button">Buscar</button>
+	</form>
+
+	<div id="result">
+
+	</div>
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock footer %}
