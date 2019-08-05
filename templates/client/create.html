@@ -1,14 +1,87 @@
 {% extends "base/base_admin.html" %}
 
 {% block title %}Crear Usuario{% endblock title %}
-
-{% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
-{% endblock styles %}
 	
 {% block content %}
-	<div class="class_container_form">
+<section class="hero is-fullheight">
+    <div class="hero.is-small hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-4 is-offset-4">
+          <div class="box">
+            <p class="subtitle is-4 has-text-grey">Crear Cuenta</p><br>
+            <form method="POST">
+              {% csrf_token %}
+  
+              <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                  <input 
+                    name="username" 
+                    class="input is-medium {% if form.username.errors %}is-danger{% endif %}" 
+                    type="text" 
+                    placeholder="Nombre de Usuario" 
+                    required
+                    value="{{ form.username.value|default_if_none:'' }}">
+                  <span class="icon is-medium is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+                {% for error in form.username.errors %}
+                <p class="help is-danger has-text-left">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="field">
+                <div class="control has-icons-left">
+                  <input 
+                    name="email" 
+                    class="input is-medium {% if form.email.errors %}is-danger{% endif %}" 
+                    type="email" 
+                    placeholder="Correo Electrónico" 
+                    required
+                    value="{{ form.email.value|default_if_none:'' }}">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+                {% for error in form.email.errors %}
+                <p class="help is-danger has-text-left">{{ error }}</p>
+                {% endfor %}
+              </div>
+  
+              <div class="field">
+                <div class="control has-icons-left">
+                  <input 
+                    name="password" 
+                    class="input is-medium {% if form.password.errors %}is-danger{% endif %}" 
+                    type="password" 
+                    required
+                    placeholder="Contraseña">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </div>
+                {% for error in form.password.errors %}
+                <p class="help is-danger has-text-left">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <button class="button is-block is-info is-medium is-fullwidth">Registrarse</button><br>
+                </div>
+              </div>
+
+            </form>
+          </div>
+          <p class="has-text-grey">
+            <a href="{% url 'client:login' %}">Ya tengo una cuenta</a> &nbsp;·&nbsp;
+            <a href="#">Ayuda?</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+	<!-- <div class="class_container_form">
     <form method='POST'>
       {% csrf_token %}
       {% for field in form %}
@@ -34,11 +107,5 @@
       {% endfor %}
       <input class="btn #9E9E9E grey" type="submit" value="Registrase" >
     </form>
-  </div>
+  </div> -->
 {% endblock content %}
-
-{% block footer %}
-<footer>
-	<p>Ya cuento con una <a href="{% url 'client:login' %}">Cuenta</a></p>
-</footer>
-{% endblock footer %}

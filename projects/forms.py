@@ -13,6 +13,7 @@ class ProjectCreateForm(forms.ModelForm):
         model = Project
         fields = ('title', 'description', 'dead_line',)
 
+
 class PermissionProjectForm(forms.Form):
     permission = forms.ModelChoiceField(
         queryset=ProjectPermission.objects.all(),

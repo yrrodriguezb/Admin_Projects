@@ -1,0 +1,36 @@
+        
+<div class="field">
+  <label class="label">Titulo</label>
+  <div class="control">
+    <input class="input" type="text" name="title" required value="{{ form.title.value|default_if_none:'' }}"">
+  </div>
+  {% if form.title.errors %}
+    {% for error in form.title.errors %}
+    <p class="help is-danger"> {{ error }} </p>
+    {% endfor%}
+  {% endif %}
+</div>
+
+<div class="field">
+  <label class="label">Descripción</label>
+  <div class="control">
+    <input class="input" type="text" name="description" required value="{{ form.description.value|default_if_none:'' }}">
+  </div>
+  {% if form.description.errors %}
+    {% for error in form.description.errors %}
+    <p class="help is-danger"> {{ error }} </p>
+    {% endfor%}
+  {% endif %}
+</div>
+
+<div class="field">
+  <label class="label">Fecha</label>
+  <div class="control">
+    <input class="input" type="text" name="dead_line" required value="{{ form.dead_line.value }}">
+  </div>
+  {% if form.dead_line.errors %}
+    {% for error in form.dead_line.errors %}
+    <p class="help is-danger"> {{ error }} </p>
+    {% endfor%}
+  {% endif %}
+</div>

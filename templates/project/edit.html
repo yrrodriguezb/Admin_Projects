@@ -3,21 +3,31 @@
 {% block title %}Editar Proyecto{% endblock title %}
 
 {% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
 {% endblock styles %}
 	
 {% block content %}
-	<div class="class_container_form">
+<div class="columns has-padding-4">
+  <div class="column is-6">
     <form method='POST'>
       {% csrf_token %}
 
-      {% include "includes/_forms.html" with form=form_project only %}
-      {% include "includes/_forms.html" with form=form_status only %}
+      <div class="subtitle is-4 has-margin-t-6">
+        Editar Proyecto
+      </div>
+
+      {% include "includes/projects/_forms.html" with form=form_project only %}
+      {% include "includes/status/_forms.html" with form=form_status only %}
      
-      <input class="btn #9E9E9E grey" type="submit" value="Actualizar Proyecto" >
+      <div class="field has-margin-t-7">
+        <div class="control has-margin-t-4">
+          <input class="button is-link" type="submit" value="Guardar Proyecto" >
+        </div>
+      </div>
     </form>
   </div>
+</div>
 {% endblock content %}
 
 {% block footer %}

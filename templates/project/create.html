@@ -1,24 +1,31 @@
 {% extends "base/base_admin.html" %}
 
-{% block title %}Nuevo Proyecto{% endblock title %}
-
 {% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
 {% endblock styles %}
-	
-{% block content %}
-	<div class="class_container_form">
-    <form method='POST'>
-      {% csrf_token %}
 
-      {% include "includes/_forms.html" with form=form only %}
-     
-      <input class="btn #9E9E9E grey" type="submit" value="Nuevo Proyecto" >
+{% block content %}
+<div class="columns has-padding-4">
+  <div class="column is-6">
+    <form method='POST' action="{% url 'project:create' %}">
+        {% csrf_token %}
+      
+        <div class="subtitle is-4 has-margin-t-6">
+          Nuevo Proyecto
+        </div>
+      
+        {% include "includes/projects/_forms.html" with form=form only %}
+      
+        <hr>
+        
+        <div class="field">
+          <div class="control">
+              <input class="button is-link" type="submit" value="Guardar Proyecto" >
+          </div>
+        </div>
     </form>
   </div>
+</div>
 {% endblock content %}
 
-{% block footer %}
-
-{% endblock footer %}

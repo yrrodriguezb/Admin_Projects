@@ -7,37 +7,109 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock title %}</title>
 	 <!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
-	{% block styles %}{% endblock styles %}
-</head>
-<body>
-    <header>
-		<nav>
-			<div class="nav-wrapper #9E9E9E grey">
-				<a href="#" class="brand-logo">Logo</a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="{% url 'client:edit' %}">Editar</a></li>
-					<li><a href="{% url 'client:login' %}">Login</a></li>
-					<li><a href="{% url 'client:create' %}">Registro</a></li>
-				</ul>
-			</div>
-		</nav>					
-	</header>
+		<link rel="stylesheet" href="{% static 'css/bulma.0.7.5.css' %}">
+		{% block styles %}{% endblock styles %}
 
-	{% if messages %}
-		<ul>
-		{% for message in messages %}
-				<li {% if message.tags %}class="{{ message.tags }}_message"{% endif %}>{{ message }}</li>
-		{% endfor %}
-		</ul>
+		<script defer src="{% static 'js/font-awesome.5.3.1.js' %}"></script>
+</head>
+<body {% if not user.is_authenticated or user.is_anonymous %} class="has-background-light" {% endif %}>
+	{% if user.is_authenticated %}
+	<header>	
+		<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand">
+				<a class="navbar-item is-capitalized has-text-weight-bold is-family-sans-serif" href="{% url 'home' %}">
+					Admin Projects
+				</a>
+		
+				<a id="btn-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+			</div>
+		
+			<div id="navbarBasicExample" class="navbar-menu">
+				<div class="navbar-start">
+					<a class="navbar-item" href="{% url 'home' %}">Home</a>
+					<a class="navbar-item" href="{% url 'project:projects' %}">Proyectos</a>
+				</div>
+		
+				<div class="navbar-end">
+					{% if user.is_authenticated %}
+					<div class="navbar-item has-dropdown is-hoverable">
+						<a class="navbar-link">
+							<strong>Bienvenido {{ user.username }}</strong>
+						</a>
+						<div class="navbar-dropdown">
+							{% if user.is_staff %}
+							<a class="navbar-item" href="{% url 'admin:index' %}">Administrador</a>
+							{% endif %}
+							<a class="navbar-item" href="{% url 'project:my_projects' %}">Mis Proyectos</a>
+							<a class="navbar-item" href="{% url 'client:edit' %}">Perfil</a>
+							<a class="navbar-item" href="{% url 'client:edit_password' %}">Cambiar Contraseña</a> 
+							<a class="navbar-item" href="{% url 'client:edit_social' %}">Redes Sociales</a> 
+
+							<hr class="navbar-divider">
+
+							<a class="navbar-item" href="{% url 'client:logout' %}">Cerrar sesión</a>
+						</div>
+					</div>
+					{% else %}
+					<div class="navbar-item">
+						<div class="buttons">
+							<a class="button is-link" href="{% url 'client:login' %}">
+								Log in
+							</a>
+						</div>
+					</div>
+					{% endif%}
+				</div>
+			</div>
+		</nav>
+	</header>
 	{% endif %}
 
-	{% block content %}{% endblock content %}
+	<div class="container">
+		{% if messages %}
+			{% for message in messages %}
+				<div class="columns">
+					<div class="column is-full">
+						<article class="message is-success">
+							<div class="message-body">
+								{{ message }}
+							</div>
+						</article>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
 
-	{% block footer %}{% endblock footer %}
+		{% block content %}
+		{% endblock content %}
+	</div>
+
+	{% block modal %}{% endblock modal %}
 
 	<!-- Compiled and minified JavaScript -->
-    <script src="{% static 'js/materialize.min.js' %}"></script>
-    {% block scripts %}{% endblock scripts %}
+	<script type="text/javascript">
+		var btnmenu = document.getElementById('btn-menu');
+		var navbar = document.getElementById('navbarBasicExample');
+		var open = false;
+
+		var showMenu = (function () {
+			if (!open) {
+				navbar.classList.add('is-active');
+				open = true;
+			}
+			else {
+				navbar.classList.remove('is-active');
+				open = false;
+			}
+		});
+
+		btnmenu.onclick = showMenu;
+
+	</script>
+  {% block scripts %}{% endblock scripts %}
 </body>
 </html>

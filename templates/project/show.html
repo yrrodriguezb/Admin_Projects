@@ -3,16 +3,36 @@
 {% block title %}{{ project.title }}{% endblock title %}
 
 {% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
 {% endblock styles %}
 	
-{% block content %}
-  <h4>{{ project.title }}</h4>
 
-  {% if has_permission %}
-    <a href="{% url 'project:edit' project.slug %}"> Editar </a>
-  {% endif %}
+{% block content %}
+  <div class="level">
+    <div class="level-left has-margin-t-4">
+      <div class="subtitle is-4">
+        Administrador 
+      </div>
+    </div>
+  </div> 
+
+  <article class="message is-info">
+    <div class="message-body">
+      <div class="level">
+        <div class="level-left">
+          <strong>Proyecto: </strong>&nbsp;{{ project.title }} 
+        </div>
+        {% if has_permission %}
+        <div class="level-right">
+          <strong>
+            <a href="{% url 'project:edit' project.slug %}"> Editar</a>
+          </strong>
+        </div>
+      {% endif %}
+      </div>
+    </div>
+  </article>
   
 {% endblock content %}
 

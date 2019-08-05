@@ -4,30 +4,59 @@
 Editar Redes Sociales
 {% endblock title %}
 
-{% block title_page %}
-<h3>Editar Redes Sociales</h3>
-{% endblock title_page %}
-
 {% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
 {% endblock styles %}
-	
 
 {% block content %}
-<div class="collection">
-    <a class="collection-item" href="{% url 'client:edit' %}">Perfil</a>
-    <a class="collection-item" href="{% url 'client:edit_password' %}">Contrseña</a> 
-    <a class="collection-item active" href="{% url 'client:edit_social' %}">Redes Sociales</a> 
-  </div>
-
-<div class="class_container_form">
-  <form method='POST'>
-    {% csrf_token %}
+<div class="columns has-padding-4">
+  <div class="column is-6">
+    <form method='POST' >
+      {% csrf_token %}
     
-    {% include "includes/_forms.html" with form=form %}
+      <div class="subtitle is-4 has-margin-t-6">
+        Redes Sociales
+      </div>
+    
+      <div class="field">
+          <label class="label">Github</label>
+        <div class="control has-icons-left">
+          <input class="input is-medium" type="text" name="github" placeholder="Github" value="{{ form.github.value }}">
+          <span class="icon is-left">
+            <i class="fab fa-github"></i>
+          </span>
+        </div>
+      </div>
 
-    <input class="btn #9E9E9E grey" type="submit" value="Actualizar" >
-  </form>
+      <div class="field">
+          <label class="label">Facebook</label>
+        <div class="control has-icons-left">
+          <input class="input is-medium" type="text" name="facebook" placeholder="Facebook" value="{{ form.facebook.value }}">
+          <span class="icon is-left">
+            <i class="fab fa-facebook"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Twitter</label>
+        <div class="control has-icons-left">
+          <input class="input is-medium" type="text" name="twitter" placeholder="Twitter" value="{{ form.twitter.value }}">
+          <span class="icon is-left">
+            <i class="fab fa-twitter"></i>
+          </span>
+        </div>
+      </div>
+    
+      <hr>
+      
+      <div class="field">
+        <div class="control">
+            <input class="button is-link" type="submit" value="Guardar Redes Sociales" >
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock content %}

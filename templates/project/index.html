@@ -1,9 +1,50 @@
 {% extends "base/base_admin.html" %}
 
 {% block title %}Proyectos{% endblock title %}
+
+{% block styles %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
+{% endblock styles %}
+	
 	
 {% block content %}
-	{% for project in object_list %}
-		<a href="{% url 'project:show' project.slug %}">{{ project.title }}</a>
-	{% endfor %}
+	<div class="level has-margin-t-6">
+		<div class="level-left">
+			<div class="level-item">
+				<p class="subtitle is-4">
+					Proyectos
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+	
+	<div class="table-container">
+		<table class="table table is-fullwidth table is-bordered table is-narrow is-hoverable">
+			<thead>
+				<tr>
+					<th><abbr title="#">#</abbr></th>
+					<th>Proyecto</th>
+					<th>Descripción</th>
+					<th>Fecha de creación</th>
+					<th>Fecha Permiso</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for project in object_list %}
+				<tr>
+					<td>{{ forloop.counter  }}</td>
+					<td>
+						<a href="{% url 'project:show' project.slug %}">{{ project.title }}</a>
+					</td>
+					<td>{{ project.description|truncatechars:70 }}</td>
+					<td>{{ project.create_date }}</td>
+					<td>{{ project.dead_line }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock content %}

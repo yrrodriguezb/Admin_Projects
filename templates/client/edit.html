@@ -4,31 +4,100 @@
 Editar Cuenta
 {% endblock title %}
 
-{% block title_page %}
-<h3>Editar cuenta</h3>
-{% endblock title_page %}
-
-{% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
-{% endblock styles %}
-	
-
 {% block content %}
-<div class="collection">
-  <a class="collection-item active" href="{% url 'client:edit' %}">Perfil</a>
-  <a class="collection-item" href="{% url 'client:edit_password' %}">Contrseña</a> 
-  <a class="collection-item" href="{% url 'client:edit_social' %}">Redes Sociales</a> 
-</div>
+<section class="hero is-fullheight">
+  <div class="hero.is-small">
+    <div class="container has-text-centered">
+      <div class="column is-8 is-offset-2">
+        <div class="box">
+          <p class="subtitle is-4 has-text-grey has-text-left">Editar Cuenta</p>
+          
+          <form method="POST">
+            {% comment %}
+              {% include "includes/_forms.html" with form=form_user %}
+              {% include "includes/_forms.html" with form=form_client %}
+            {% endcomment %}
+            {% csrf_token %}
 
-<div class="class_container_form">
-    <form method='POST'>
-      {% csrf_token %}
-     
-      {% include "includes/_forms.html" with form=form_user %}
-      {% include "includes/_forms.html" with form=form_client %}
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <div class="control is-expanded has-icons-left has-icons-right">
+                    <input name="username" class="input is-medium" type="text" placeholder="Nombre de Usuario" value="{{ form_user.username.value|default_if_none:'' }}">
+                    <span class="icon is-medium is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <input class="btn #9E9E9E grey" type="submit" value="Actualizar" >
-    </form>
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <input name="email" class="input is-medium" type="email" placeholder="Correo Electrónico" value="{{ form_user.email.value|default_if_none:'' }}">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input name="first_name" class="input is-medium" type="text" placeholder="Nombres" value="{{ form_user.first_name.value|default_if_none:'' }}">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="control">
+                    <input name="last_name" class="input is-medium" type="text" placeholder="Apellidos" value="{{ form_user.last_name.value|default_if_none:'' }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <input name="job" class="input is-medium" type="text" placeholder="Trabajo Actual" value="{{ form_client.job.value|default_if_none:'' }}">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-briefcase"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <textarea name="bio" class="textarea is-medium" placeholder="Algo sobre ti">{{ form_client.bio.value|default_if_none:'' }}</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="control">
+                  <button class="button is-block is-info is-medium">Actualizar</button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 {% endblock content %}

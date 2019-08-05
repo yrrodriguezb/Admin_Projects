@@ -1,0 +1,15 @@
+<div class="control">
+  <label for="status" class="label">Status</label>
+  <div class="control has-icons-left">
+    <div class="select is-fullwidth">
+      <select name="status">
+        {% for value, text in form.fields.status.choices %}
+          <option value="{{ value }}" {% if value == form.status.value %}selected{% endif %}>{{ text }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <span class="icon is-medium is-left">
+      <i class="fas fa-globe"></i>
+    </span>
+  </div>
+</div>

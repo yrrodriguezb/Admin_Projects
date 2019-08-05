@@ -2,12 +2,24 @@
 
 {% block title %}Admin Projects{% endblock title %}
 
-{% block scripts %}
-{% endblock scripts %}
+{% block styles %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
+{% endblock styles %}
 	
 {% block content %}
-<h3>Bienvenido a Admin Projects</h3>
+<article class="message is-dark has-margin-t-7">
+  <div class="message-body">
+    <div class="level">
+      <div class="level-left">
+        Bienvenido al administrador de proyectos &nbsp;<strong> {{ user.username }} </strong>.
+      </div>
+      {% if not user.is_authenticated or user.is_anonymous %}
+      <div class="level-right">
+        <a class="button is-link" href="{% url 'client:login' %}">Login</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</article>
 {% endblock content %}
-
-{% block footer %}
-{% endblock footer %}

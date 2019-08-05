@@ -2,9 +2,22 @@
 
 {% block title %}DashBoard{% endblock title %}
 
+{% block styles %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
+{% endblock styles %}
 	
 {% block content %}
-<h3>Welcome</h3>
-<a href="{% url 'client:show' user.username %}">{{ user.username }}</a>
-<a href="{% url 'project:my_projects' %}">Mis Proyectos</a>
+<article class="message is-dark has-margin-t-7">
+  <div class="message-body">
+    <div class="level">
+      <div class="level-left">
+        Bienvenido&nbsp;<strong> {{ user.username }} </strong> .
+      </div>
+      <div class="level-right">
+        <strong><a href="{% url 'project:my_projects' %}">Ir a Mis Proyectos</a></strong>
+      </div>
+    </div>
+  </div>
+</article>
 {% endblock content %}

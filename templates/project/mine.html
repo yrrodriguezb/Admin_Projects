@@ -3,20 +3,69 @@
 {% block title %}Mis Proyectos{% endblock title %}
 
 {% block styles %}
-  {% load staticfiles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
 {% endblock styles %}
 	
 {% block content %}
-	<a href="{% url 'project:create' %}">Crear Proyecto</a>
+	<div class="level has-margin-6">
+		<div class="level-left">
+			<div class="level-item">
+				<p class="subtitle is-4">
+					Mis Proyectos
+				</p>
+			</div>
+		</div>
+		<div class="level-right">
+			<div class="level-item">
+				<a id='btn-add-project' href="{% url 'project:create' %}" class="button is-link">Nuevo Proyecto</a>
+			</div>
+		</div>
+	</div>
 
-	{% for project_user in object_list %}
-		{% with project_user.get_project as project  %}
-			<a href="{% url 'project:show' project.slug %}"> {{ project.title }} {{ project.slug  }}</a><br>
-		{% endwith %}
-	{% endfor %}
+	<hr>
+
+	{% if object_list %}
+	<div class="table-container">
+			<table class="table table is-fullwidth table is-bordered table is-narrow is-hoverable">
+				<thead>
+					<tr>
+						<th><abbr title="#">#</abbr></th>
+						<th>Proyecto</th>
+						<th>Descripción</th>
+						<th>Fecha de creación</th>
+						<th>Fecha Permiso</th>
+						<th>Editar</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for project_user in object_list %}
+						{% with project_user.get_project as project  %}
+							<tr>
+								<td>{{ forloop.counter  }}</td>
+								<td>{{ project.title }}</td>
+								<td>{{ project.description|truncatechars:70 }}</td>
+								<td>{{ project.create_date }}</td>
+								<td>{{ project.dead_line }}</td>
+								<td class="has-text-centered">
+									<a href="{% url 'project:show' project.slug %}">
+										<span class="icon has-text-success has-text-justify">
+											<i class="fas fa-edit"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+							
+						{% endwith %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+	<article class="message is-info">
+		<div class="message-body">
+			No se encontrarón proyectos.
+		</div>
+	</article>
+	{% endif %}
 {% endblock content %}
-
-{% block footer %}
-
-{% endblock footer %}
