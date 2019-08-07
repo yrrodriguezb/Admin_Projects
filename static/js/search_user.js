@@ -1,22 +1,30 @@
 var buscar = (function(){
+    var template = `
+    <div class="tags has-addons has-margin-t-6">
+        <span class="tag is-info">{{ username }}</span>
+        <a class="tag" href="{{ href }}">
+            <span class="icon has-text-info">
+                <i class="fas fa-plus"></i>
+            </span>
+        </a>
+    </div>
+    `;
+
     var pintar_data = function (data) {
         div = document.getElementById('result');
         div.innerHTML = ""
-        ul = document.createElement('ul');
+        
         link = location.pathname + 'add/';
 
         for(let elem of data) {
             href = link + elem.username + '/'
-            li = document.createElement('li')
-            a = document.createElement('a');
-            a.href = href 
-            a.text = "Agregar"
-            li.innerHTML = elem.username 
-            li.appendChild(a)
-            ul.appendChild(li)
+
+            t = template
+                .replace('{{ username }}', elem.username)
+                .replace('{{ href }}', href);
+            
+            div.innerHTML += t; 
         }
-    
-        div.appendChild(ul)
     }
     
     
@@ -35,7 +43,7 @@ var buscar = (function(){
             pintar_data(d)
         })
         .catch(err => {
-            console.log("error")
+            console.log("Error: ", err)
         })
 })
 let btn = document.getElementById('btnBuscar')

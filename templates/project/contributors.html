@@ -3,30 +3,58 @@
 
 {% block title %}Colaboradores Proyecto{% endblock title %}
 
-{% block styles %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/forms.css' %}">
-{% endblock styles %}
-
 {% block scripts %}
   <script type="text/javascript" src="{% static 'js/search_user.js' %}"></script>
 {% endblock scripts %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
+{% endblock styles %}
 	
 {% block content %}
-	{% for user in object_list %}
-		<p>{{ user.user }} Permiso: {{ user.permission }}</p>
-		<a href="{% url 'project:user_contributor' project.slug user.user.username %}">Ver</a>
-	{% endfor %}
+	{% if object_list %}
+		
+		<h3 class="subtitle is-4 has-margin-t-6">Contribuidores</h3>
+
+		<table class="table is-hoverable is-bordered is-narrow">
+			<thead>
+				<tr>
+					<th>Colaborador</th>
+					<th>Permiso</th>
+					<th class="has-text-centered">Detalle</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in object_list %}
+				<tr>
+					<td>{{ user.user }}</td>
+					<td>{{ user.permission }}</td>
+					<td class="has-text-centered">
+						<a href="{% url 'project:user_contributor' project.slug user.user.username %}">
+							<span class="icon has-text-warning">
+								<i class="fas fa-edit"></i>
+							</span>
+						</a>
+					</td>
+				</tr>				
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+	<article class="message is-info has-margin-t-6">
+		<div class="message-body">
+			No se encontraron contribuidores para el proyecto.
+		</div>
+	</article>
+	{% endif %}
+
+	<h3 class="subtitle is-5 has-margin-t-6">Agregar Contribuidor</h3>
 
 	<form id="form-search-user" method="GET" action="{% url 'client:filter'%}">
-		<input type="text" name="username" >
-		<button id="btnBuscar" type="button">Buscar</button>
+		{% include "includes/_search.html" with button_id="btnBuscar" name="username" placeholder="Buscar Contribuidor" only %}
 	</form>
 
 	<div id="result">
 
 	</div>
 {% endblock content %}
-
-{% block footer %}
-
-{% endblock footer %}

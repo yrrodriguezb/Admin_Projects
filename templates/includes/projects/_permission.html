@@ -1,0 +1,15 @@
+<div class="control">
+  <label class="label">Permiso</label>
+  <div class="control has-icons-left">
+    <div class="select is-fullwidth">
+      <select name="permission">
+        {% for value, text in form.fields.permission.choices %}
+          <option value="{{ value }}" {% if value == form.permission.value %}selected{% endif %}>{{ text }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <span class="icon is-medium is-left">
+      <i class="fas fa-shield-alt"></i>
+    </span>
+  </div>
+</div>

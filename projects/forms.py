@@ -19,8 +19,3 @@ class PermissionProjectForm(forms.Form):
         queryset=ProjectPermission.objects.all(),
         initial=0
     )
-
-    # Solo para materialize
-    def __init__(self, *args, **kwargs):
-        super(PermissionProjectForm, self).__init__(*args, **kwargs)
-        self.fields['permission'].widget.attrs.update({ 'class': 'browser-default' })

@@ -2,28 +2,34 @@
 {% load staticfiles %}
 
 {% block title %}Colaborador Proyecto{% endblock title %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/bulma-utilities.css' %}">
+{% endblock styles %}
 	
 {% block content %}
-  <h4>Colaborador {{ user.username }}</h4>
+  {% if has_permission %}
+		<div class="columns has-padding-4">
+			<div class="column is-6">
+				<h4 class="subtitle is-4 has-margin-t-6">Colaborador <strong>{{ user.username }}</strong></h4>
 
-	{% if has_permission %}
-		<p>Puedes modificar el permiso</p>
+				<p class="has-margin-bt-5">Puedes modificar el permiso</p>
 
-		<div>
-			<form method='POST'>
-				{% csrf_token %}
-				{% include "includes/_forms.html" with form=form only %}
-				<input class='btn #9E9E9E grey' type='submit' value='Actualizar'>
-			</form>
+				<form method='POST'>
+						{% csrf_token %}
+					
+						{% include "includes/projects/_permission.html" with form=form only %}
+						
+						<div class="field has-margin-t-6">
+							<div class="control">
+									<input class="button is-link" type="submit" value="Actualizar" >
+									<a class="button is-danger" href="{% url 'project:delete_contributor' project.slug user.username %}">Eliminar de colaboradores</a>
+							</div>
+						</div>
+				</form>
+			</div>
 		</div>
 
-		<br>
-
-		<a href="{% url 'project:delete_contributor' project.slug user.username %}">Eliminar de colaboradores</a>
 	{% endif %}
 
 {% endblock content %}
-
-{% block footer %}
-
-{% endblock footer %}

@@ -26,6 +26,10 @@
         {% if has_permission %}
         <div class="level-right">
           <strong>
+            <a href="{% url 'project:contributors' project.slug %}"> Contribuidores</a>
+          </strong>
+          &nbsp;.&nbsp;
+          <strong>
             <a href="{% url 'project:edit' project.slug %}"> Editar</a>
           </strong>
         </div>
